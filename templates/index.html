@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+<main class="container">
+    <h1>Cadastro de Cliente</h1>
+
+   <form class="add-item" action="/add" method="post" autocomplete="off">
+    <label>
+        Nome *
+        <input type="text" name="nome" placeholder="Nome completo" required />
+    </label>
+    <label>
+        CPF *
+        <input type="text" name="cpf" placeholder="CPF" required />
+    </label>
+    <label>
+        Telefone *
+        <input type="tel" name="telefone" placeholder="Telefone" required />
+    </label>
+    <label>
+        Email *
+        <input type="email" name="email" placeholder="Email" required />
+    </label>
+    <button type="submit">Adicionar</button>
+</form>
+
+    <table aria-label="Lista de Itens">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Telefone</th>
+                <th>Email</th>
+                <th style="width: 140px;">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in items %}
+            <tr>
+                <td data-label="Nome">{{ item.nome }}</td>
+                <td data-label="CPF">{{ item.cpf }}</td>
+                <td data-label="Telefone">{{ item.telefone or '-' }}</td>
+                <td data-label="Email">{{ item.email or '-' }}</td>
+                <td data-label="Ações">
+                    <a class="action-link" href="/edit/{{ item.id }}">Editar</a>
+                    <form class="delete-form" action="/delete/{{ item.id }}" method="post" onsubmit="return confirm('Confirma a exclusão deste item?');" aria-label="Excluir item {{ item.nome }}">
+                        <button type="submit">Deletar</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5" style="text-align:center; color: #9ca3af; font-style: italic;">Nenhum item cadastrado.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</main>
+</body>
+</html>
