@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Cadastro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+<main class="container">
+    <h1>EDITAR CLIENTE</h1>
+    <form class="edit-item" action="/edit/{{ item.id }}" method="post" autocomplete="off" novalidate>
+        <label>
+            Nome *
+            <input type="text" name="nome" value="{{ item.nome }}" placeholder="Nome completo" required />
+        </label>
+        <label>
+            CPF *
+            <input type="text" name="cpf" value="{{ item.cpf }}" placeholder="CPF" required />
+        </label>
+        <label>
+            Telefone
+            <input type="tel" name="telefone" value="{{ item.telefone or '' }}" placeholder="Telefone" />
+        </label>
+        <label>
+            Email
+            <input type="email" name="email" value="{{ item.email or '' }}" placeholder="Email" />
+        </label>
+        <button type="submit">Salvar Alterações</button>
+    </form>
+    <a class="back-link" href="/">Voltar para o Cadastro</a>
+</main>
+</body>
+</html>
